@@ -19,7 +19,7 @@ I wanted to create something simple for what I want, which is just to move every
 - *Note*: this new version uses Munki's embedded Python 3, so you must be using at least Munki version 4. If you don't have that installed already, you should download [the latest Munki release](https://github.com/munki/munki/releases/latest) and install that first.
 
 ### Include Directories or Exclude Pkgs
-If you only want to apply the proimotion to a subset of folders within you pkgsinfo directory when you edit the MCPPrefs.plist file set:
+If you only want to apply the promotion to a subset of folders within you pkgsinfo directory when you edit the MCPPrefs.plist file set:
 ```
 	<key>use_included_subdirectories</key>
 	<true/>
