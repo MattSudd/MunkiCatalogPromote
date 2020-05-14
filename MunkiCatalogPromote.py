@@ -6,15 +6,22 @@ import os
 import plistlib
 import subprocess
 
-##### User-defined preferences -- this could be a .plist, but keeping it in the .py makes it simpler
-
-days_between_promotions = 4
-promotion_order = ['development', 'testing', 'production']
-MUNKI_ROOT_PATH = '/Users/Shared/munki_repo'
+##### User-defined preferences -- these pull from the MCPPrefs.plist that should be with the .py
+MCP_Prefs_location = '/usr/local/mcp/MCPPrefs.plist'
+MCP_Prefs_file = open(MCP_Prefs_location, 'rb')
+MCP_prefs=plistlib.load(MCP_Prefs_file)
+use_included_subdirectories=MCP_prefs['use_included_subdirectories']
+use_excluded_pkgs=MCP_prefs['use_excluded_pkgs']
+promotion_order=list(MCP_prefs['promotion_order'])
+days_between_promotions = MCP_prefs['days_between_promotions']
+MUNKI_ROOT_PATH=MCP_prefs['MUNKI_ROOT_PATH']
+MUNKI_PKGSINFO_DIR_NAME=MCP_prefs['MUNKI_PKGSINFO_DIR_NAME'] 
+included_subdirectories=set(MCP_prefs['included_subdirectories'])
+excluded_pkgs=list(MCP_prefs['excluded_pkgs'])
 
 # If you're using a standard Munki setup, these variables will likely remain unchanged
 makecatalogs = '/usr/local/munki/makecatalogs'
-MUNKI_PKGSINFO_DIR_NAME = 'pkgsinfo'
+
 
 ##### End of user-defined preferences
 
@@ -24,7 +31,7 @@ if not os.path.exists(os.path.expanduser('~/Library/Logs')):
 log_file = os.path.expanduser('~/Library/Logs/MunkiAutopromote.log')
 
 logging.basicConfig(format = '%(asctime)s - %(levelname)s: %(message)s',
-                        datefmt = '%m/%d/%Y %I:%M:%S %p',
+                        datefmt = '%Y/%m/%d %I:%M:%S %p',
                         level = logging.DEBUG,
                         filename = log_file)
 
@@ -48,10 +55,17 @@ def main():
         ## Loop through all the pkginfo files and see if they need to be promoted
         for root, dirs, files in os.walk(pkgsinfo_path):
             for dir in dirs:
+                # if feature switch enabled only run on the directories defined in included_directories
+                if use_included_subdirectories:
+                     dirs[:] = [x for x in dirs if x in included_subdirectories]
                 # Skip directories starting with a period
                 if dir.startswith("."):
                     dirs.remove(dir)
             for file in files:
+                # If feature switch enabled skip files that match excluded pkgs
+                if use_excluded_pkgs:    
+                    if file.startswith(tuple(excluded_pkgs)):
+                        continue
                 # Skip files that start with a period
                 if file.startswith("."):
                     continue

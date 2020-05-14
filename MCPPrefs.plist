@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>use_included_subdirectories</key>
+	<false/>
+	<key>use_excluded_pkgs</key>
+	<false/>
+	<key>promotion_order</key>
+	<array>
+		<string>development</string>
+		<string>testing</string>
+		<string>production</string>
+	</array>
+	<key>days_between_promotions</key>
+	<integer>4</integer>
+	<key>MUNKI_ROOT_PATH</key>
+	<string>/Users/Shared/munki-repo</string>
+	<key>MUNKI_PKGSINFO_DIR_NAME</key>
+	<string>pkgsinfo</string>		
+	<key>included_subdirectories</key>
+	<array>
+		<!-- list of strings to match sub directories in your pkgsinfo directory e.g.
+		<string>mozilla</string>
+		<string>google</string>
+		<string>microsoft</string>
+		-->
+	</array>
+	<key>excluded_pkgs</key>
+	<array>
+		<!-- List of strings these will statswith match files in the pkgsinfo dir e.g. 
+		<string>Picasa</string>
+		<string>GoogleDrive-1.32</string>
+		<string>MSAutoUpdate-4.17.19111002.plist</string>
+		-->
+	</array>
+</dict>
+</plist>
+	
+				
