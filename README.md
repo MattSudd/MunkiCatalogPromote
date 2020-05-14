@@ -24,7 +24,7 @@ If you only want to apply the proimotion to a subset of folders within you pkgsi
 	<key>use_included_subdirectories</key>
 	<true/>
 ```
-Then configure a list of strings that match your subdirectories exactly.  If, for eaxmple, you only want pkgs in mozilla, google, and microsoft subdirectories to be promoted; set:
+Then configure a list of strings that match your subdirectories exactly.  If, for example, you only want pkgs in mozilla, google, and microsoft subdirectories to be promoted; set:
 ```
 <key>included_subdirectories</key>
 	<array>
