@@ -1,4 +1,4 @@
-# MunkiCatalogPromote
+# MunkiCatalogSelectivePromote
 Promotes pkginfo files from development to testing to production after a certain number of days
 
 ## Rationale
@@ -72,4 +72,5 @@ sudo chmod -R 755 /usr/local/mcp
 ```
 
 ## Acknowledgements
+Forked from Aysiu's [AutoPromoter] (https://github.com/aysiu/MunkiCatalogPromote)
 Some of the code is lifted/tweaked from [autopromoter](https://github.com/jessepeterson/autopromoter), some from [outset](https://github.com/chilcote/outset/), and some from [munki](https://github.com/munki/munki).
